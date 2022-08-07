@@ -32,7 +32,7 @@
     <a href="#"></a>
 </div>
 <div class="header">
-    <h1>What game would you like to add?:</h1>
+    <h1>What game would you like to update?:</h1>
 </div>
 
 <br></br>   
@@ -47,17 +47,27 @@
 
 <?php
 if (isset($_POST['title'])) {
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $discount = $_POST['discount'];
-    $device = $_POST['device'];
-    $cost = $_POST['cost'];
-    $query = "INSERT INTO listgames (title, description, discount, device, cost) VALUES ('$title', '$description', '$discount', '$device', '$cost')";
+    $query = "SELECT * FROM listgames WHERE title = '$_POST[title]'";
     $result = pg_query($query);
     if (!$result) {
         die("Error in SQL query: " . pg_last_error());
     }
-    echo "Game added successfully!";
+    $row = pg_fetch_array($result, null, PGSQL_ASSOC);
+    if ($row) {
+        $query = "UPDATE listgames SET description = '$_POST[description]', discount = '$_POST[discount]', device = '$_POST[device]', cost = '$_POST[cost]' WHERE title = '$_POST[title]'";
+        $result = pg_query($query);
+        if (!$result) {
+            die("Error in SQL query: " . pg_last_error());
+        }
+        echo "Game updated";
+    } else {
+        $query = "INSERT INTO listgames (title, description, discount, device, cost) VALUES ('$_POST[title]', '$_POST[description]', '$_POST[discount]', '$_POST[device]', '$_POST[cost]')";
+        $result = pg_query($query);
+        if (!$result) {
+            die("Error in SQL query: " . pg_last_error());
+        }
+        echo "Game added";
+    }
 }
 ?>
 

@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="styles/index.css">
-<link rel="stylesheet" href="styles/addGame.css">
  </head>
  <style>
 </style>
@@ -32,36 +31,50 @@
     <a href="#"></a>
 </div>
 <div class="header">
-    <h1>What game would you like to add?:</h1>
+    <h1>Search for a game:</h1>
 </div>
-
-<br></br>   
-<form action="addGame.php" method="post" class="formquestions">
-    <input type="text" name="title" placeholder="Game Title"><br></br>
-    <input type="text" name="description" placeholder="Game Description"><br></br>
-    <input type="text" name="discount" placeholder="Game Discount"><br></br>
-    <input type="text" name="device" placeholder="Game Device"><br></br>
-    <input type="text" name="cost" placeholder="Game Cost"><br></br>
-    <input type="submit" value="Add Game">
-</form>
-
+<form action="search.php" method="post">
+    <input type="text" name="search" placeholder="Search...">
+    <input type="submit" value="Search">
+</form> 
 <?php
-if (isset($_POST['title'])) {
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $discount = $_POST['discount'];
-    $device = $_POST['device'];
-    $cost = $_POST['cost'];
-    $query = "INSERT INTO listgames (title, description, discount, device, cost) VALUES ('$title', '$description', '$discount', '$device', '$cost')";
+if (isset($_POST['search'])) {
+    $query = "SELECT * FROM listgames WHERE title = '$_POST[search]'";
     $result = pg_query($query);
     if (!$result) {
         die("Error in SQL query: " . pg_last_error());
     }
-    echo "Game added successfully!";
+    $row = pg_fetch_array($result, null, PGSQL_ASSOC);
+    if ($row) {
+        echo "<div class='header'>";
+        echo "<h1>Game Information:</h1>";
+        echo "</div>";
+        echo "<div class='gameinfo'>";
+        echo "<p>Title: " . $row['title'] . "</p>";
+        echo "<p>Description: " . $row['description'] . "</p>";
+        echo "<p>Discount: " . $row['discount'] . "%</p>";
+        echo "<p>Devices: " . $row['device'] . "</p>";
+        echo "<p>Cost: $" . $row['cost'] . "</p>";
+        echo "</div>";
+    } else {
+        echo "<div class='header'>";
+        echo "<h1>Game not found!</h1>";
+        echo "</div>";
+    }
 }
 ?>
-
-
+<style>
+    .h1 {
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .gameinfo {
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+    }
+</style>
 
  </body>
 </html>
