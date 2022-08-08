@@ -9,7 +9,7 @@
  </head>
  <style>
 </style>
- <body>
+<body style="background-color:black">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -24,20 +24,15 @@
 ?>
 <div class="topnav">
     <a href="index.php">Home</a>
-    <a href="addgame.php">Add Games</a>
+    <a href="addGame.php">Add Games</a>
     <a href="removeGame.php">Remove Games</a>
-    <a href="developers.php">Developers</a>
-    <a href="publishers.php">Publishers</a>
+    <a href="update.php">Update Games</a>
     <a href="search.php">Search</a>
     <a href="#"></a>
     <a href="#"></a>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
 </div>
 <div class="header">
-    <h1>What game would you like to Remove?:</h1>
+    <h1 style="color:white">What game would you like to Remove?:</h1>
 </div>
 
 <a class="addgame"></a>

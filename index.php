@@ -8,7 +8,7 @@
  </head>
  <style>
 </style>
- <body>
+<body style="background-color:black">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -30,35 +30,107 @@
     <a href="#"></a>
     <a href="#"></a>
 </div>
-<div class="header">
-    <h1>Games:</h1>
+
+
+<div>
+    <div id="img-right" class="img-right">  
+        <img src="https://wallpapershome.com/images/pages/pic_v/13886.jpg" alt="banner" class="img-fluid">
+    </div>
 </div>
 
-<a class="gameslist">
-    <br></br>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Discount</th>
-                <th scope="col">Device</th>
-                <th scope="col">Cost</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                while ($row = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-                    echo "<tr>";
-                    echo "<td>".$row['title']."</td>";
-                    echo "<td>".$row['description']."</td>";
-                    echo "<td>".$row['discount']."%</td>";
-                    echo "<td>".$row['device']."</td>";
-                    echo "<td>$".$row['cost']."</td>";
-                    echo "</tr>";
-                }
-            ?>
-        </tbody>
+
+<style>
+
+.img-right {
+    position: absolute;
+    top: 53px;
+    right: 0px;
+    width: 15%;
+    height: 15%;
+    border-radius: 0px 0px 80px 80px;
+    animation-name: flow;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-delay: -2s;
+    transition-timing-function: cubic-bezier(0,.57,1,.46);
+    box-shadow: 2px 2px 16px 2px rgba(0,0,0,0.5);
+  
+}
+.second-animation {
+  animation-delay: -1.5s;
+}
+@keyframes flow {
+  0% {height: 20%; border-radius: 0px 0px 30px 30px;}
+  50% {height: 90%; border-radius: 0px 0px 100px 100px;}
+  100% {height: 20%; border-radius: 0px 0px 30px 30px;}
+}
+
+
+</style>
+
+
+<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+
+
+
+<a class="topPicks">
+<h1 style="color:white">Top Picks:</h1>
+<br></br>
+ <?php
+
+    $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
+    if (!$db_connection) {
+        die("Error in connection: " . pg_last_error());
+    }
+    $query = "SELECT * FROM listgames";
+    $result = pg_query($query);
+    if (!$result) {
+        die("Error in SQL query: " . pg_last_error());
+    }   
+    $row = pg_fetch_array($result, null, PGSQL_ASSOC);
+
+    $i = 0;
+    while ($i < 3) {
+        echo "<div class='row'>";
+        $j = 0;
+        while ($j < 3) {
+            echo "<div class='col'>";
+            echo "<div class='card'>";
+            echo "<h3>".$row['title']."</h3>";
+            if ($row['description'] != NULL) {
+                echo "<p>Add your game!</p>";
+            }
+            else {
+                echo "<p>".$row['description']."</p>";
+            }
+            echo "<p>".$row['cost']."</p>";
+            echo "</div>";
+            echo "</div>";
+            $row = pg_fetch_array($result, null, PGSQL_ASSOC);
+            $j++;
+        }
+        echo "</div>";
+        echo "<br></br>";
+        $i++;
+    }
+
+?>
+<style>
+.card {
+    background-color: #333;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.card-title {
+    font-size: 1.5em;
+}
+.card-text {
+    font-size: 1em;
+}
+</style>
 </a>
 
 

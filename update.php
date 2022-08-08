@@ -9,7 +9,7 @@
  </head>
  <style>
 </style>
- <body>
+<body style="background-color:black">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -32,7 +32,7 @@
     <a href="#"></a>
 </div>
 <div class="header">
-    <h1>What game would you like to update?:</h1>
+    <h1 style="color:white">What game would you like to update?:</h1>
 </div>
 
 <br></br>   

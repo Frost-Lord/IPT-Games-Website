@@ -8,7 +8,7 @@
  </head>
  <style>
 </style>
- <body>
+<body style="background-color:black">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -31,11 +31,11 @@
     <a href="#"></a>
 </div>
 <div class="header">
-    <h1>Search for a game:</h1>
+    <h1 style="color:white">Search for a game:</h1>
 </div>
 <form action="search.php" method="post">
     <input type="text" name="search" placeholder="Search...">
-    <input type="submit" value="Search">
+    <input type="submit" value="Search" style="color:black;">
 </form> 
 <?php
 if (isset($_POST['search'])) {
@@ -67,6 +67,7 @@ if (isset($_POST['search'])) {
     .h1 {
         width: 50%;
         margin: 0 auto;
+        color: white;
         text-align: center;
     }
     .gameinfo {
