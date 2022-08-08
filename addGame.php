@@ -76,19 +76,21 @@ if (isset($_POST['title'])) {
     $developer = $_POST['developer'];
     $certified = false;
     
-    $array1 = array();
-    $array2 = array();
-    $array3 = array();
-    $deviceA = array_push($array1, $_POST['devices']);
-    $languageA = array_push($array2, $_POST['language']);
-    $categoryA = array_push($array3, $_POST['Categorys']);
+    $categorys = array();
+    if (isset($_POST['Categorys'])) {
+        $categorys = $_POST['Categorys'];
+    }
+    $devices = array();
+    if (isset($_POST['devices'])) {
+        $devices = $_POST['devices'];
+    }
+    $language = array();
+    if (isset($_POST['language'])) {
+        $language = $_POST['language'];
+    }
+        
 
-    $device = $_POST[$deviceA];
-    $language = $_POST[$languageA];
-    $category = $_POST[$categoryA];
-    
-
-    $query = "INSERT INTO listgames (title, description, discount, cost, device, languages, categorys, developer, certified) VALUES ('$title', '$description', '$discount', '$cost', '$device', '$languages', '$categorys', '$developer', '$certified')";
+    $query = "INSERT INTO listgames (title, description, discount, cost, developer, certified, categorys, devices, language) VALUES ('$title', '$description', '$discount', '$cost', '$developer', '$certified', '$categorys', '$devices', '$language')";
     $result = pg_query($query);
     if (!$result) {
         die("Error in SQL query: " . pg_last_error());
