@@ -97,12 +97,7 @@
             echo "<div class='col'>";
             echo "<div class='card'>";
             echo "<h3>".$row['title']."</h3>";
-            if ($row['description'] != NULL) {
-                echo "<p>Add your game!</p>";
-            }
-            else {
-                echo "<p>".$row['description']."</p>";
-            }
+            echo "<p>".$row['description']."</p>";
             echo "<p>".$row['cost']."</p>";
             echo "</div>";
             echo "</div>";
