@@ -88,6 +88,8 @@ if (isset($_POST['title'])) {
     if (isset($_POST['language'])) {
         $language = $_POST['language'];
     }
+
+    //Error in SQL query: ERROR: column "devices" of relation "listgames" does not exist LINE 1: ... discount, cost, developer, certified, categorys, devices, l... ^
         
 
     $query = "INSERT INTO listgames (title, description, discount, cost, developer, certified, categorys, devices, language) VALUES ('$title', '$description', '$discount', '$cost', '$developer', '$certified', '$categorys', '$devices', '$language')";
