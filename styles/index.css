@@ -36,3 +36,98 @@
         font-size: 20px;
         border-radius: 50%;
     }
+
+    .slider_section {
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        position: relative;
+        z-index: 2;
+        color: #3b3a3a;
+        padding-bottom: 90px;
+      }
+      
+      .slider_section .row {
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+      }
+      
+      .slider_section div#carouselExampleIndicators {
+        width: 100%;
+        position: unset;
+      }
+      
+      .slider_section .detail_box {
+        color: #ffffff;
+      }
+      
+      .slider_section .detail_box h1 span {
+        color: #fbb03b;
+      }
+      
+      .slider_section .detail_box p {
+        margin-top: 20px;
+      }
+      
+      .slider_section .detail_box a {
+        display: inline-block;
+        padding: 10px 45px;
+        background-color: #582fd7;
+        color: #ffffff;
+        border-radius: 5px;
+        margin-top: 35px;
+      }
+      
+      .slider_section .detail_box a:hover {
+        background-color: #6944db;
+      }
+      
+      .slider_section .img-box img {
+        width: 100%;
+      }
+      
+      .slider_section .slider_number-container {
+        position: absolute;
+        top: 8%;
+        left: 10%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+      }
+      
+      .slider_section .carousel_btn-container {
+        width: 95px;
+        position: absolute;
+        bottom: 120px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        right: 50%;
+        z-index: 999;
+        -webkit-transform: translateX(50%);
+                transform: translateX(50%);
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: #120c21;
+        border-radius: 10px;
+      }
