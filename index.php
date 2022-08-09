@@ -29,6 +29,7 @@
     <a href="search.php">Search</a>
     <a href="#"></a>
     <a href="#"></a>
+    <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
 </div>
 
 
@@ -40,6 +41,17 @@
 
 
 <style>
+
+.shoppingcart {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    background: #ffc107;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+}
 
 .img-right {
     position: absolute;
@@ -77,6 +89,7 @@
 <h1 style="color:white">Top Picks:</h1>
 <br></br>
  <?php
+ session_start();
 
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -122,11 +135,43 @@
         $gameCost = $_POST['cost'];
         $gameDescription = $_POST['description'];
 
-        $cart[] = array('title' => $gameTitle, 'cost' => $gameCost, 'description' => $gameDescription);
-        setcookie('cart', serialize($cart), time() + (86400 * 30), "/");
-        echo "You have added ".$gameTitle."| Cost: ".$gameCost." to your cart";
+        $cart = [];
+        if (isset($_COOKIE['cart'])) {
+            $cart = unserialize($_COOKIE['cart']);
+        }
+        $cart[] = [
+            'title' => $gameTitle,
+            'cost' => $gameCost,
+            'description' => $gameDescription
+        ];
+
+        
+        $_SESSION['cart'] = serialize($cart);
+
+        //echo "<script>alert('Game added to cart!')</script>";
+
     }
 
+
+    //get the cart and display it
+    if (isset($_COOKIE['cart'])) {
+        $cart = unserialize($_COOKIE['cart']);
+        echo "<h1>Your Cart:</h1>";
+        echo "<table border='1'>";
+        echo "<tr>";
+        echo "<th>Title</th>";
+        echo "<th>Cost</th>";
+        echo "<th>Description</th>";
+        echo "</tr>";
+        foreach ($cart as $game) {
+            echo "<tr>";
+            echo "<td>".$game['title']."</td>";
+            echo "<td>".$game['cost']."</td>";
+            echo "<td>".$game['description']."</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    }
 ?>
 <style>
 .card {

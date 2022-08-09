@@ -26,3 +26,13 @@
         box-sizing: border-box;
         color: #ffffff;
     }
+    .shoppingcart {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        background: #ffc107;
+        color: #fff;
+        font-size: 20px;
+        border-radius: 50%;
+    }
