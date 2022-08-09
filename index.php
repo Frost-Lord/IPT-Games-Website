@@ -121,11 +121,10 @@
         $gameTitle = $_POST['title'];
         $gameCost = $_POST['cost'];
         $gameDescription = $_POST['description'];
-        $cart = array();
 
         $cart[] = array('title' => $gameTitle, 'cost' => $gameCost, 'description' => $gameDescription);
         setcookie('cart', serialize($cart), time() + (86400 * 30), "/");
-        echo "You have added ".$gameTitle." Cost: ".$gameCost" to your cart";
+        echo "You have added ".$gameTitle."| Cost: ".$gameCost." to your cart";
     }
 
 ?>
