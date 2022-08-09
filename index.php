@@ -8,7 +8,7 @@
  </head>
  <style>
 </style>
-<body style="background-color:black">
+<body style="background-color:#171a21">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -41,18 +41,6 @@
 
 
 <style>
-
-.shoppingcart {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 10px;
-    background: #ffc107;
-    color: #fff;
-    font-size: 20px;
-    border-radius: 50%;
-}
-
 .img-right {
     position: absolute;
     top: 53px;
@@ -76,8 +64,6 @@
   50% {height: 90%; border-radius: 0px 0px 100px 100px;}
   100% {height: 20%; border-radius: 0px 0px 30px 30px;}
 }
-
-
 </style>
 
 
@@ -124,11 +110,49 @@
             echo "</div>";
             $row = pg_fetch_array($result, null, PGSQL_ASSOC);
             $j++;
+            if ($j > 9) {
+                break;
+            }
         }
         echo "</div>";
         echo "<br></br>";
         $i++;
     }
+
+     echo "<br></br><br></br><br></br>";
+     //create a box for each game in the database and display the title, description, cost, and make it like a slideshow
+     $o = 0;
+     while ($o < 3) {
+         echo "<div class='row'>";
+         $j = 0;
+         while ($j < 3) {
+             echo "<div class='col'>";
+             echo "<div class='card'>";
+             echo "<h3>".$row['title']."</h3>";
+             echo "<p>".$row['description']."</p>";
+             echo "<p>".$row['cost']."</p>";
+          
+             echo "<form action='index.php' method='post'>";
+             echo "<input type='hidden' name='title' value='".$row['title']."'>";
+             echo "<input type='hidden' name='description' value='".$row['description']."'>";
+             echo "<input type='hidden' name='cost' value='".$row['cost']."'>";
+             echo "<input type='submit' value='Add to Cart'>";
+             echo "</form>";
+          
+             echo "</div>";
+             echo "</div>";
+             $row = pg_fetch_array($result, null, PGSQL_ASSOC);
+             $j++;
+             if ($j > 9) {
+                 break;
+             }
+         }
+         echo "</div>";
+         echo "<br></br>";
+         $o++;
+     }
+    
+
 
     if (isset($_POST['title'])) {
         $gameTitle = $_POST['title'];
@@ -144,11 +168,9 @@
             'cost' => $gameCost,
             'description' => $gameDescription
         ];
-
-        
         $_SESSION['cart'] = serialize($cart);
 
-        //echo "<script>alert('Game added to cart!')</script>";
+        echo "<script>alert('Game added to cart!')</script>";
 
     }
 

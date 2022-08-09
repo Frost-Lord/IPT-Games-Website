@@ -8,7 +8,7 @@
  </head>
  <style>
 </style>
-<body style="background-color:black">
+<body style="background-color:#171a21">
 <?php
 session_start();
 
@@ -52,18 +52,30 @@ session_start();
         //echo the carts title, description, and cost from the session
         $items = $_SESSION['cart'];
         $items = unserialize($items);
+
+        echo "<table class='table table-striped'>";
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>Title</th>";
+        echo "<th>Description</th>";
+        echo "<th>Cost</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
         foreach ($items as $item) {
-            echo "<div class='row'>";
-            echo "<div class='col'>";
-            echo "<div class='card'>";
-            echo "<h3>".$item['title']."</h3>";
-            echo "<p>".$item['description']."</p>";
-            echo "<p>".$item['cost']."</p>";
-            echo "</div>";
-            echo "</div>";
-            echo "</div>";
+            echo "<tr>";
+            echo "<td>".$item['title']."</td>";
+            echo "<td>".$item['description']."</td>";
+            echo "<td>".$item['cost']."</td>";
+            echo "</tr>";
         }
+        echo "</tbody>";
+        echo "</table>";
         echo "<h3>Total: $".$total."</h3>";
+        echo "<a href='checkout.php' class='btn btn-primary'>Checkout</a>ㅤㅤ";
+        echo "<a href='index.php' class='btn btn-primary'>Continue Shopping</a>ㅤㅤ";
+        echo "<a href='removeGame.php' class='btn btn-primary'>Remove Games</a>";
+
 ?>
 
 

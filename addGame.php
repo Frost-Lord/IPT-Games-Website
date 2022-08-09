@@ -9,7 +9,7 @@
  </head>
  <style>
 </style>
-<body style="background-color:black">
+<body style="background-color:#171a21">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -30,6 +30,7 @@
     <a href="search.php">Search</a>
     <a href="#"></a>
     <a href="#"></a>
+    <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
 </div>
 <div class="header">
     <h1 style="color:white">What game would you like to add?:</h1>

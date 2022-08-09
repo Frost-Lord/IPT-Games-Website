@@ -9,7 +9,7 @@
  </head>
  <style>
 </style>
-<body style="background-color:black">
+<body style="background-color:#171a21">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -23,13 +23,14 @@
     $row = pg_fetch_array($result, null, PGSQL_ASSOC);
 ?>
 <div class="topnav">
-    <a href="index.php">Home</a>
+<a href="index.php">Home</a>
     <a href="addGame.php">Add Games</a>
     <a href="removeGame.php">Remove Games</a>
     <a href="update.php">Update Games</a>
     <a href="search.php">Search</a>
     <a href="#"></a>
     <a href="#"></a>
+    <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
 </div>
 <div class="header">
     <h1 style="color:white">What game would you like to Remove?:</h1>
