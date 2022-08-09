@@ -47,7 +47,7 @@
                       IN ONE <span>PLACE!</span>
                     </h1>
                     <p>
-                     FrostProxy is a video game digital distribution service
+                     This is the best video game digital distribution service
                     </p>
                   </div>
                 </div>
@@ -62,7 +62,8 @@
     </section>
 
 <br></br><br>
-
+<h1 style="color:white">Top 4!:</h1>
+<br></br>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
