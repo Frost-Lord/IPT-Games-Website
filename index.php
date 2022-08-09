@@ -99,6 +99,14 @@
             echo "<h3>".$row['title']."</h3>";
             echo "<p>".$row['description']."</p>";
             echo "<p>".$row['cost']."</p>";
+         
+            echo "<form action='index.php' method='post'>";
+            echo "<input type='hidden' name='title' value='".$row['title']."'>";
+            echo "<input type='hidden' name='description' value='".$row['description']."'>";
+            echo "<input type='hidden' name='cost' value='".$row['cost']."'>";
+            echo "<input type='submit' value='Add to Cart'>";
+            echo "</form>";
+         
             echo "</div>";
             echo "</div>";
             $row = pg_fetch_array($result, null, PGSQL_ASSOC);
@@ -107,6 +115,17 @@
         echo "</div>";
         echo "<br></br>";
         $i++;
+    }
+
+    if (isset($_POST['title'])) {
+        $gameTitle = $_POST['title'];
+        $gameCost = $_POST['cost'];
+        $gameDescription = $_POST['description'];
+        $cart = array();
+
+        $cart[] = array('title' => $gameTitle, 'cost' => $gameCost, 'description' => $gameDescription);
+        setcookie('cart', serialize($cart), time() + (86400 * 30), "/");
+        echo "You have added ".$gameTitle." Cost: ".$gameCost" to your cart";
     }
 
 ?>
