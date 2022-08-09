@@ -42,6 +42,7 @@
     <input type="text" name="developer" placeholder="Game Developer" style="color:black;"><br></br>
     <input type="text" name="discount" placeholder="Game Discount" style="color:black;"><br></br>
     <input type="text" name="cost" placeholder="Game Cost" style="color:black;"><br></br>
+
     <h1 style="color:white">Choose a device:</h1>
     <input type="checkbox" id="console" name="console" value="console">
     <label for="console"> It works with consoles</label><br>
@@ -49,7 +50,9 @@
     <label for="pc"> It works with PC</label><br>
     <input type="checkbox" id="Iphone" name="Iphone" value="Iphone">
     <label for="Iphone"> It works with Iphone</label>
+
     <br></br>
+
     <h1 style="color:white">Choose a Categorys:</h1>
     <input type="checkbox" id="action" name="action" value="action">
     <label for="action"> Action</label><br>
@@ -57,7 +60,7 @@
     <label for="adventure"> Adventure</label><br>
     <input type="checkbox" id="strategy" name="strategy" value="strategy">
     <label for="strategy"> Strategy</label><br>
-    <input type="checkbox" id="rpg" name="rpg" value="rpg">
+    <input type="checkbox" id="rpg" name="rpg" value="pg">
     <label for="rpg"> RPG</label><br>
     <input type="checkbox" id="sports" name="sports" value="sports">
     <label for="sports"> Sports</label><br>
@@ -67,7 +70,9 @@
     <label for="other"> Other</label><br>
     <input type="checkbox" id="none" name="none" value="none">
     <label for="none"> None</label><br>
+
     <br></br>
+
     <h1 style="color:white">Choose a Language:</h1>
     <input type="checkbox" id="english" name="english" value="english">
     <label for="english"> English</label><br>
@@ -79,14 +84,16 @@
     <label for="german"> German</label><br>
     <input type="checkbox" id="other" name="other" value="other">
     <label for="other"> Other</label><br>
+    
     <br></br>
+
     <input type="submit" value="Add Game" style="color:black;">
 </form>
 
 <?php
 echo "Devices: " . $_POST["device"] . "<br>";
-echo "Categorys: " . $_POST["category"] . "<br>";
-echo "Language: " . $_POST["language"] . "<br>";
+echo "Categorys: " . $_POST["categorys"] . "<br>";
+echo "Language: " . $_POST["languages"] . "<br>";
 
 echo "test:" . $_POST["console"] . "<br>";
 
@@ -97,56 +104,67 @@ if (isset($_POST['title'])) {
     $cost = $_POST['cost'];
     $developer = $_POST['developer'];
 
-   foreach($_POST['device'] as $temp) {
-        $number = 0;
-        if ($temp == 'console') {
-            $number = 1;
-        } else if ($temp == 'pc') {
-            $number = 2;
-        } else if ($temp == 'Iphone') {
-            $number = 3;
-        } else if ($temp == 'Mac') {
-            $number = 4;
-        }
-        $sql = "INSERT INTO `listgames`(`id`, `device`) values ($id,$temp)";
-        $result = pg_query($sql);
+
+    $device = array();
+    if (isset($_POST['console'])) {
+        array_push($device, $_POST['console']);
+    }
+    if (isset($_POST['pc'])) {
+        array_push($device, $_POST['pc']);
+    }
+    if (isset($_POST['Iphone'])) {
+        array_push($device, $_POST['Iphone']);
+    }
+    if (isset($_POST['Mac'])) {
+        array_push($device, $_POST['Mac']);
+    }
+
+    $categorys = array();
+    if (isset($_POST['action'])) {
+        array_push($categorys, $_POST['action']);
+    }
+    if (isset($_POST['adventure'])) {
+        array_push($categorys, $_POST['adventure']);
+    }
+    if (isset($_POST['strategy'])) {
+        array_push($categorys, $_POST['strategy']);
+    }
+    if (isset($_POST['rpg'])) {
+        array_push($categorys, $_POST['rpg']);
+    }
+    if (isset($_POST['sports'])) {
+        array_push($categorys, $_POST['sports']);
+    }
+    if (isset($_POST['puzzle'])) {
+        array_push($categorys, $_POST['puzzle']);
+    }
+    if (isset($_POST['other'])) {
+        array_push($categorys, $_POST['other']);
+    }
+
+    $languages = array();
+    if (isset($_POST['english'])) {
+        array_push($languages, $_POST['english']);
+    }
+    if (isset($_POST['spanish'])) {
+        array_push($languages, $_POST['spanish']);
+    }
+    if (isset($_POST['french'])) {
+        array_push($languages, $_POST['french']);
+    }
+    if (isset($_POST['german'])) {
+        array_push($languages, $_POST['german']);
+    }
+    if (isset($_POST['other'])) {
+        array_push($languages, $_POST['other']);
     }
 
 
-    foreach($_POST['Categorys'] as $temp){
-        $number = 0;
-        if ($temp == 'action') {
-            $number = 1;
-        } else if ($temp == 'adventure') {
-            $number = 2;
-        } else if ($temp == 'rpg') {
-            $number = 3;
-        } else if ($temp == 'sports') {
-            $number = 4;
-        } else if ($temp == 'strategy') {
-            $number = 5;
-        }
-        $sql = "INSERT INTO `listgames`(`id`, `Categorys`) values ($id,$temp)";
-        $result = pg_query($sql);
-    }
+    $device = implode(",", $device);
+    $categorys = implode(",", $categorys);
+    $languages = implode(",", $languages);
 
-    foreach($_POST['language'] as $temp){
-        $number = 0;
-        if ($temp == 'english') {
-            $number = 1;
-        } else if ($temp == 'french') {
-            $number = 2;
-        } else if ($temp == 'german') {
-            $number = 3;
-        } else if ($temp == 'spanish') {
-            $number = 4;
-        }
-        $sql = "INSERT INTO `listgames`(`id`, `language`) values ($id,$temp)";
-        $result = pg_query($sql);
-    }
-    
-    
-    $query = "INSERT INTO listgames (title, description, discount, cost, developer) VALUES ('$title', '$description', '$discount', '$cost', '$developer')";
+    $query = "INSERT INTO listgames (title, description, discount, cost, developer, device, categorys, languages) VALUES ('$title', '$description', '$discount', '$cost', '$developer', '$device', '$categorys', '$languages')";
     $result = pg_query($query);
     if (!$result) {
         die("Error in SQL query: " . pg_last_error());
