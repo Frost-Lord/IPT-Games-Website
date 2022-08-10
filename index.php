@@ -9,18 +9,7 @@
  <style>
 </style>
 <body style="background-color:#171a21">
-<?php
-    $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
-    if (!$db_connection) {
-        die("Error in connection: " . pg_last_error());
-    }
-    $query = "SELECT * FROM listgames";
-    $result = pg_query($query);
-    if (!$result) {
-        die("Error in SQL query: " . pg_last_error());
-    }   
-    $row = pg_fetch_array($result, null, PGSQL_ASSOC);
-?>
+
 <div class="topnav">
     <a href="index.php">Home</a>
     <a href="addGame.php">Add Games</a>
