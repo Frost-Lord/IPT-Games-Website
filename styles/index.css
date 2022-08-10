@@ -131,3 +131,9 @@
         background-color: #120c21;
         border-radius: 10px;
       }
+      .col-md-6 {
+        border: rgb(28, 0, 104) solid 3px;
+        background-color: #07111a;
+        border-radius: 5px;
+        padding: 10px;
+      }

@@ -8,7 +8,7 @@
  </head>
  <style>
 </style>
-<body style="background-color:#171a21">
+<body style="background-color:#07111a">
 <?php
 session_start();
 
@@ -40,6 +40,7 @@ session_start();
 <h1 style="color:white">Your cart:</h1>
 <br></br>
 <?php
+session_start();
         $items = $_SESSION['cart'];
         $items = unserialize($items);
         $total = 0;

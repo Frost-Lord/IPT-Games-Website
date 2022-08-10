@@ -9,7 +9,7 @@
  </head>
  <style>
 </style>
-<body style="background-color:#171a21">
+<body style="background-color:#07111a">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -32,17 +32,24 @@
     <a href="#"></a>
     <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
 </div>
+
 <div class="header">
     <h1 style="color:white">What game would you like to Remove?:</h1>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
 
 <a class="addgame"></a>
 <br></br>   
-<form action="addGame.php" method="post">
-    <input type="text" name="title" placeholder="Game Title"><br></br>
-    <input type="submit" value="Add Game">
+<form action="removeGame.php" method="post">
+    <input type="text" name="title" placeholder="Game Title" style="color:black"><br></br>
+    <input type="submit" value="Add Game" style="color:black;">
 </form>
 </a>
+</div>
+</div>
+    </div>
 
 <?php
 if (isset($_POST['title'])) {

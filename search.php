@@ -8,7 +8,7 @@
  </head>
  <style>
 </style>
-<body style="background-color:#171a21">
+<body style="background-color:#07111a">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {

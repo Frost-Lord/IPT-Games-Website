@@ -5,11 +5,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="styles/index.css">
-<link rel="stylesheet" href="styles/addGame.css">
  </head>
  <style>
 </style>
-<body style="background-color:#171a21">
+<body style="background-color:#07111a">
 <?php
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -37,7 +36,11 @@
 </div>
 
 <br></br>   
-<form action="addGame.php" method="post" class="formquestions">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+
+        <form action="addGame.php" method="post" class="formquestions">
     <input type="text" name="title" placeholder="Game Title" style="color:black;"><br></br>
     <input type="text" name="description" placeholder="Game Description" style="color:black;"><br></br>
     <input type="text" name="developer" placeholder="Game Developer" style="color:black;"><br></br>
@@ -90,13 +93,11 @@
 
     <input type="submit" value="Add Game" style="color:black;">
 </form>
+        </div>
+    </div>
+
 
 <?php
-echo "Devices: " . $_POST["device"] . "<br>";
-echo "Categorys: " . $_POST["categorys"] . "<br>";
-echo "Language: " . $_POST["languages"] . "<br>";
-
-echo "test:" . $_POST["console"] . "<br>";
 
 if (isset($_POST['title'])) {
     $title = $_POST['title'];
