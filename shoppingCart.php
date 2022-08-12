@@ -1,5 +1,7 @@
+<?php
+session_start();
+?>
 <html>
-
 <head>
     <title>Games Store</title>
     <meta http-equiv="Content-Type"'.' content="text/html; charset=utf8" />
@@ -12,7 +14,6 @@
 
 <body style="background-color:#07111a">
     <?php
-    session_start();
 
     $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
     if (!$db_connection) {
@@ -39,7 +40,7 @@
 
 
     <a class="topPicks">
-        <h1 style="color:white">Your cart:</h1>
+        <h1 style="color:white">ㅤYour cart:</h1>
         <br></br>
         <?php
         session_start();
@@ -48,7 +49,10 @@
         $total = 0;
 
         foreach ($items as $item) {
-            $total += $item['cost'];
+            $costOfItem = $item['cost'];
+            $discount = $item['discount'];
+            $discountPrice = $costOfItem - ($costOfItem * ($discount / 100));
+            $total += $discountPrice;
         }
 
         $_SESSION['total'] = $total;
@@ -58,7 +62,9 @@
         echo "<tr>";
         echo "<th>Title:</th>";
         echo "<th>Description:</th>";
+        echo "<th>Discount:</th>";
         echo "<th>Cost:</th>";
+        echo "<th>Remove:</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -66,16 +72,32 @@
             echo "<tr>";
             echo "<td>" . $item['title'] . "</td>";
             echo "<td>" . $item['description'] . "</td>";
+            echo "<td>" . $item['discount'] . "</td>";
             echo "<td>$" . $item['cost'] . " AUD</td>";
+            echo "<td><form action='shoppingCart.php' method='post'>";
+            echo "<input type='hidden' name='remove' value='" . $item['title'] . "'>";
+            echo "<input type='submit' class='btn btn-primary' value='Remove'>";
+            echo "</form></td>";
             echo "</tr>";
         }
         echo "</tbody>";
         echo "</table>";
-        echo "<h3>Total: $" . $total . "</h3>";
-        echo "<a href='checkout.php' class='btn btn-primary'>Checkout</a>ㅤㅤ";
-        echo "<a href='index.php' class='btn btn-primary'>Continue Shopping</a>ㅤㅤ";
-        echo "<a href='removeGame.php' class='btn btn-primary'>Remove Games</a>";
+        echo "<br></br><br></br>";
+        echo "<h3>ㅤTotal: $" . $total . " AUD</h3>";
+        echo "ㅤㅤ<a href='checkout.php' class='btn btn-primary'>Checkout</a>ㅤ";
+        echo "ㅤㅤ<a href='index.php' class='btn btn-primary'>Continue Shopping</a>ㅤ";
 
+        if (isset($_POST['remove'])) {
+            $remove = $_POST['remove'];
+            $items = unserialize($itemsS);
+            foreach ($items as $key => $item) {
+                if ($item['title'] == $remove) {
+                    unset($items[$key]);
+                }
+            }
+            $itemsS = serialize($items);
+            $_SESSION['cart'] = $itemsS;
+        }
         ?>
 
 <br></br><br></br><br></br>

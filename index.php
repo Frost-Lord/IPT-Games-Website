@@ -1,5 +1,7 @@
+<?php
+session_start();
+?>
 <html>
-
 <head>
     <title>Games Store</title>
     <meta http-equiv="Content-Type"'.' content="text/html; charset=utf8" />
@@ -11,6 +13,7 @@
 </style>
 
 <body style="background-color:#07111a">
+
     <div class="topnav">
         <a href="index.php">Home</a>
         <a href="addGame.php">Add Games</a>
@@ -150,6 +153,7 @@
                         echo "<form action='index.php' method='post'>";
                         echo "<input type='hidden' name='title' value='" . $row['title'] . "'>";
                         echo "<input type='hidden' name='description' value='" . $row['description'] . "'>";
+                        echo "<input type='hidden' name='discount' value='" . $row['discount'] . "'>";
                         echo "<input type='hidden' name='cost' value='" . $row['cost'] . "'>";
                         echo "<input type='submit' class='btn btn-primary' value='Add to Cart'>";
                         echo "</form>";
@@ -172,7 +176,6 @@
         <h1 style="color:white">ㅤㅤTop Picks:</h1>
         <br></br>
         <?php
-        session_start();
 
         $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
         if (!$db_connection) {
@@ -203,6 +206,7 @@
                 echo "<form action='index.php' method='post'>";
                 echo "<input type='hidden' name='title' value='" . $row['title'] . "'>";
                 echo "<input type='hidden' name='description' value='" . $row['description'] . "'>";
+                echo "<input type='hidden' name='discount' value='" . $row['discount'] . "'>";
                 echo "<input type='hidden' name='cost' value='" . $row['cost'] . "'>";
                 echo "<input type='submit' class='btn btn-primary' value='Add to Cart'>";
                 echo "</form>";
@@ -229,12 +233,14 @@
             $gameTitle = $_POST['title'];
             $gameCost = $_POST['cost'];
             $gameDescription = $_POST['description'];
-
+            $gameDiscount = $_POST['discount'];
+            
             $cart = [];
             if (isset($_SESSION['cart'])) {
                 $cart[] = [
                     'title' => $gameTitle,
                     'cost' => $gameCost,
+                    'discount' => $gameDiscount,
                     'description' => $gameDescription
                 ];
 
@@ -244,6 +250,7 @@
                 $cart[] = [
                     'title' => $gameTitle,
                     'cost' => $gameCost,
+                    'discount' => $gameDiscount,
                     'description' => $gameDescription
                 ];
                 $_SESSION['cart'] = serialize($cart);
