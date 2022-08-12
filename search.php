@@ -52,12 +52,18 @@
             echo "<div class='header'>";
             echo "<h1>Game Information:</h1>";
             echo "</div>";
+
+            echo "<div class='container'>";
+            echo "<div class='row'>";
+            echo "<div class='col-md-6'>";            
             echo "<div class='gameinfo'>";
             echo "<p>Title: " . $row['title'] . "</p>";
             echo "<p>Description: " . $row['description'] . "</p>";
             echo "<p>Discount: " . $row['discount'] . "%</p>";
             echo "<p>Devices: " . $row['device'] . "</p>";
             echo "<p>Cost: $" . $row['cost'] . "</p>";
+            echo "</div>";
+            echo "</div>";
             echo "</div>";
         } else {
             echo "<div class='header'>";
@@ -66,6 +72,40 @@
         }
     }
     ?>
+
+<br></br><br></br><br></br>
+        <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Types:</h3>
+                        <ul>
+                            <li><a href="#">Games</a></li>
+                            <li><a href="#">Developers</a></li>
+                            <li><a href="#">Tags</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About:</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>About us:</h3>
+                        <p>We provide the best and affordable games on the market! So come join us!</p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                </div>
+                <p class="copyright">Ewen MacCulloch © 2022</p>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
     <style>
         .h1 {
             width: 50%;

@@ -240,7 +240,7 @@
             }
             .fixed-right {
                 position: fixed;
-                top: 130;
+                top: 100;
                 right: 0;
                 width: 300px;
                 height: 100%;
@@ -344,7 +344,38 @@
             echo "Game added successfully!";
         }
         ?>
-
+        <br></br><br></br><br></br>
+        <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Types:</h3>
+                        <ul>
+                            <li><a href="#">Games</a></li>
+                            <li><a href="#">Developers</a></li>
+                            <li><a href="#">Tags</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About:</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>About us:</h3>
+                        <p>We provide the best and affordable games on the market! So come join us!</p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                </div>
+                <p class="copyright">Ewen MacCulloch © 2022</p>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 </body>

@@ -11,18 +11,6 @@
 </style>
 
 <body style="background-color:#07111a">
-    <?php
-    $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
-    if (!$db_connection) {
-        die("Error in connection: " . pg_last_error());
-    }
-    $query = "SELECT * FROM listgames";
-    $result = pg_query($query);
-    if (!$result) {
-        die("Error in SQL query: " . pg_last_error());
-    }
-    $row = pg_fetch_array($result, null, PGSQL_ASSOC);
-    ?>
     <div class="topnav">
         <a href="index.php">Home</a>
         <a href="addGame.php">Add Games</a>
@@ -63,6 +51,74 @@
                 </div>
     </section>
 
+
+    <div class="sidenav">
+        <a class="smmtitle">BROWSE BY GENRE:</a>
+        <a class="smm">Action</a>
+        <a class="smm">Adventure</a>
+        <a class="smm">Strategy</a>
+        <a class="smm">Racing</a>
+        <a class="smm">Sports</a>
+        <a class="smm">Other</a>
+        <a class="smm">All</a>
+        <a class="smmtitle">BROWSE BY LANGUAGE:</a>
+        <a class="smm">English</a>
+        <a class="smm">French</a>
+        <a class="smm">Spanish</a>
+        <a class="smm">Other</a>
+        <a class="smm">All</a>
+        <a class="smmtitle">BROWSE BY DEVICE:</a>
+        <a class="smm">PC</a>
+        <a class="smm">PS4</a>
+        <a class="smm">Xbox One</a>
+        <a class="smm">Nintendo Switch</a>
+        <a class="smm">Other</a>
+        <a class="smm">All</a>
+    </div>
+    <br></br>
+    <style>
+        .sidenav {
+            position: fixed;
+            top: 150;
+            right: 30;
+            width: 300px;
+            height: 600px;
+            background-color: #07111a;
+            z-index: 2;
+            overflow-x: hidden;
+            padding: 20px;
+            border: #0e4a80 2px solid;
+            border-radius: 10px;
+            animation: 3s;
+        }
+        @keyframes sidenav {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-50px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        
+        .smmtitle{
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ffffff;
+            animation: 3s;
+        }
+        .smm{
+            padding: 3px 8px 3px 16px;
+            font-size: 13px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+    </style>
+
     <br></br><br>
     <h1 style="color:white">ㅤㅤTop 4 Games:</h1>
     <br></br>
@@ -82,7 +138,9 @@
                     }
                     $row = pg_fetch_array($result, null, PGSQL_ASSOC);
                     $limit = 0;
-                    while ($row && $limit < 3) {
+
+                    while ($limit < 3 && $row) {
+                        $limit++;
                         echo '<div class="card">';
                         echo '<img class="card-img-top" src="https://i.ibb.co/37VJLgz/removal-ai-tmp-62f2332db0f0c.png" alt="Card image cap">';
                         echo '<div class="card-body">';
@@ -99,6 +157,8 @@
                         echo '</div>';
                         $row = pg_fetch_array($result, null, PGSQL_ASSOC);
                     }
+
+                    echo '<br></br><br></br><br></br>';
                     ?>
                 </div>
             </div>
@@ -171,21 +231,27 @@
             $gameDescription = $_POST['description'];
 
             $cart = [];
-            if (isset($_COOKIE['cart'])) {
-                $cart = unserialize($_COOKIE['cart']);
-            }
-            $cart[] = [
-                'title' => $gameTitle,
-                'cost' => $gameCost,
-                'description' => $gameDescription
-            ];
-            $_SESSION['cart'] = serialize($cart);
+            if (isset($_SESSION['cart'])) {
+                $cart[] = [
+                    'title' => $gameTitle,
+                    'cost' => $gameCost,
+                    'description' => $gameDescription
+                ];
 
-            echo "<script>alert('Game added to cart!')</script>";
+                $_SESSION['cart'] = serialize($cart);
+                echo "<script>alert(" . $game['title'] . " added to cart!)</script>";
+            } else {
+                $cart[] = [
+                    'title' => $gameTitle,
+                    'cost' => $gameCost,
+                    'description' => $gameDescription
+                ];
+                $_SESSION['cart'] = serialize($cart);
+                echo "<script>alert(" . $game['title'] . " added to cart!)</script>";
+            }
         }
 
 
-        //get the cart and display it
         if (isset($_COOKIE['cart'])) {
             $cart = unserialize($_COOKIE['cart']);
             echo "<h1>Your Cart:</h1>";
@@ -205,9 +271,50 @@
             echo "</table>";
         }
         ?>
+
+        <div class="footer-dark">
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 item">
+                            <h3>Types:</h3>
+                            <ul>
+                                <li><a href="#">Games</a></li>
+                                <li><a href="#">Developers</a></li>
+                                <li><a href="#">Tags</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md-3 item">
+                            <h3>About:</h3>
+                            <ul>
+                                <li><a href="#">Company</a></li>
+                                <li><a href="#">Team</a></li>
+                                <li><a href="#">Careers</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 item text">
+                            <h3>About us:</h3>
+                            <p>We provide the best and affordable games on the market! So come join us!</p>
+                        </div>
+                        <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                    </div>
+                    <p class="copyright">Ewen MacCulloch © 2022</p>
+                </div>
+            </footer>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
         <style>
             .card {
                 background-color: #1b2838;
+                padding: 20px;
+                border: #0e4a80 2px solid;
+                border-radius: 10px;
+                color: #fff;
+                width: 100%;
+                height: 100%;
             }
 
             .row {

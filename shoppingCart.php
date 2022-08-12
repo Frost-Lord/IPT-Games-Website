@@ -43,8 +43,8 @@
         <br></br>
         <?php
         session_start();
-        $items = $_SESSION['cart'];
-        $items = unserialize($items);
+        $itemsS = $_SESSION['cart'];
+        $items = unserialize($itemsS);
         $total = 0;
 
         foreach ($items as $item) {
@@ -52,16 +52,13 @@
         }
 
         $_SESSION['total'] = $total;
-        //echo the carts title, description, and cost from the session
-        $items = $_SESSION['cart'];
-        $items = unserialize($items);
 
         echo "<table class='table table-striped'>";
         echo "<thead>";
         echo "<tr>";
-        echo "<th>Title</th>";
-        echo "<th>Description</th>";
-        echo "<th>Cost</th>";
+        echo "<th>Title:</th>";
+        echo "<th>Description:</th>";
+        echo "<th>Cost:</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -69,7 +66,7 @@
             echo "<tr>";
             echo "<td>" . $item['title'] . "</td>";
             echo "<td>" . $item['description'] . "</td>";
-            echo "<td>" . $item['cost'] . "</td>";
+            echo "<td>$" . $item['cost'] . " AUD</td>";
             echo "</tr>";
         }
         echo "</tbody>";
@@ -80,6 +77,39 @@
         echo "<a href='removeGame.php' class='btn btn-primary'>Remove Games</a>";
 
         ?>
+
+<br></br><br></br><br></br>
+        <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Types:</h3>
+                        <ul>
+                            <li><a href="#">Games</a></li>
+                            <li><a href="#">Developers</a></li>
+                            <li><a href="#">Tags</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About:</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>About us:</h3>
+                        <p>We provide the best and affordable games on the market! So come join us!</p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                </div>
+                <p class="copyright">Ewen MacCulloch © 2022</p>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
         <style>
