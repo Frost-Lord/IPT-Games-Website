@@ -7,13 +7,10 @@ session_start();
     <meta http-equiv="Content-Type"'.' content="text/html; charset=utf8" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/index.css?v=<?php echo date('his'); ?>">
 </head>
-<style>
-</style>
 
 <body style="background-color:#07111a">
-
     <div class="topnav">
         <a href="index.php">Home</a>
         <a href="addGame.php">Add Games</a>
@@ -26,8 +23,7 @@ session_start();
     </div>
 
     <br></br>
-
-    <section class=" slider_section ">
+    <section class="slider_section">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -40,7 +36,7 @@ session_start();
                                         IN ONE <span>PLACE!</span>
                                     </h1>
                                     <p>
-                                        This is the best video game digital distribution service
+                                        This is the best video game service! So come have a look at the latest games and collections that we have available.
                                     </p>
                                 </div>
                             </div>
@@ -55,7 +51,7 @@ session_start();
     </section>
 
 
-    <div class="sidenav">
+    <div class="sidenav" id="SideNavHide">
         <a class="smmtitle">BROWSE BY GENRE:</a>
         <a class="smm">Action</a>
         <a class="smm">Adventure</a>
@@ -81,11 +77,11 @@ session_start();
     <br></br>
     <style>
         .sidenav {
-            position: fixed;
-            top: 150;
+            position: absolute;
+            top: 100;
             right: 30;
             width: 300px;
-            height: 600px;
+            height: 590px;
             background-color: #07111a;
             z-index: 2;
             overflow-x: hidden;
@@ -122,7 +118,7 @@ session_start();
         }
     </style>
 
-    <br></br><br>
+    <br></br><br><br></br><br></br><br></br>
     <h1 style="color:white">ㅤㅤTop 4 Games:</h1>
     <br></br>
     <div class="container">
@@ -150,6 +146,8 @@ session_start();
                         echo '<h5 class="card-title">' . $row['title'] . '</h5>';
                         echo '<p class="card-text">' . $row['description'] . '</p>';
                         echo '<p class="card-text"><small class="text-muted">Cost: $' . $row['cost'] . ' AUD</small></p>';
+                        echo '</div>';
+                        echo '<br></br><br></br><br></br><br></br><br></br>';
                         echo "<form action='index.php' method='post'>";
                         echo "<input type='hidden' name='title' value='" . $row['title'] . "'>";
                         echo "<input type='hidden' name='description' value='" . $row['description'] . "'>";
@@ -158,18 +156,72 @@ session_start();
                         echo "<input type='submit' class='btn btn-primary' value='Add to Cart'>";
                         echo "</form>";
                         echo '</div>';
-                        echo '</div>';
                         $row = pg_fetch_array($result, null, PGSQL_ASSOC);
                     }
 
-                    echo '<br></br><br></br><br></br>';
+                    echo '<br></><br></br><br></br>';
                     ?>
                 </div>
             </div>
         </div>
     </div>
-    <br></br>
+    <br></br><br></br><br></br><br></br>
 
+
+    <?php
+
+      //create a box that is 500px by 500px that it 10cm from the left and 10cm from the top that displays the game's title, description, cost, and discount only if it has certified = "true"
+      $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
+      if (!$db_connection) {
+          die("Error in connection: " . pg_last_error());
+      }
+      $query = "SELECT * FROM listgames";
+      $result = pg_query($query);
+      if (!$result) {
+          die("Error in SQL query: " . pg_last_error());
+      }
+      $row = pg_fetch_array($result, null, PGSQL_ASSOC);
+
+      echo '<div class="certified">';
+      echo '<h1>Certified Games:</h1>';
+        while ($row) {
+            if ($row['certified'] == "t") {
+                //make a box that shows the games title to the left, games cost to the right, and games discount to the bottom the box is 50px by 50px
+                echo '<div class="box">';
+                echo '<h1>' . $row['title'] . ': <a class="Cbox">$' . $row['cost'] . ' AUD</a></h1>';
+                echo '<a class="Dbox">' . $row['description'] . '</a>';
+                echo '</div>';
+
+            }
+            $row = pg_fetch_array($result, null, PGSQL_ASSOC);
+        }
+        echo '</div>';
+    ?>
+    <style>
+    .certified {
+        position: absolute;
+        top: 40cm;
+        left: 35%;
+    }
+    .box {
+        width: 500px;
+        height: 150px;
+        background-color: #07111a;
+        border: #0e4a80 2px solid;
+        border-radius: 10px;
+        animation: 3s;
+    }
+    .Dbox {
+        color: white;
+        font-size: 15px;
+    }
+    .Cbox {
+        color: white;
+        font-size: 30px;
+    }
+
+
+    </style>
 
 
     <a class="topPicks">
@@ -189,6 +241,7 @@ session_start();
         $row = pg_fetch_array($result, null, PGSQL_ASSOC);
 
         $i = 0;
+        echo '<a class="cardContainer">';
         while ($i < 3) {
             echo "<div class='row'>";
             $j = 0;
@@ -196,7 +249,7 @@ session_start();
                 echo "<div class='col'>";
                 echo "<div class='card'>";
                 echo "<h3>" . $row['title'] . "</h3>";
-                echo "<p>" . $row['description'] . "</p>";
+                echo "<p class='card-text'>" . $row['description'] . "</p>";
                 if (!$row['price']) {
                     echo "<p></p>";
                 } else {
@@ -223,6 +276,7 @@ session_start();
             echo "<br></br>";
             $i++;
         }
+        echo '</a>';
 
         echo "<br></br><br></br><br></br>";
 
@@ -312,8 +366,31 @@ session_start();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
+        <script>
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('.navbar').fadeOut();
+                } else {
+                    $('.navbar').fadeIn();
+                }
+            });
+        </script>
 
         <style>
+
+.card-body {
+    padding: 0.25rem;
+    flex: 1 1 auto;
+}
+.card-img-top {
+    border-top-left-radius: calc(0.15rem - 1px);
+    border-top-right-radius: calc(0.15rem - 1px);
+}
+            .cardContainer {
+                display: grid;
+                grid-template-columns: repeat(3, 2fr);
+                grid-gap: 10px;
+            }
             .card {
                 background-color: #1b2838;
                 padding: 20px;
@@ -321,7 +398,11 @@ session_start();
                 border-radius: 10px;
                 color: #fff;
                 width: 100%;
-                height: 100%;
+                height: 450px;
+            }
+
+            .card:hover {
+                transform: scale(1.1);
             }
 
             .row {
@@ -336,6 +417,7 @@ session_start();
 
             .card-text {
                 font-size: 1em;
+                overflow: hidden;
             }
 
             .card:hover {

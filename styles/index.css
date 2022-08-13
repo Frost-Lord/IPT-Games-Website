@@ -85,38 +85,11 @@
         margin-top: 35px;
       }
       
-      .slider_section .detail_box a:hover {
-        background-color: #6944db;
-      }
       
       .slider_section .img-box img {
         width: 100%;
       }
       
-      .slider_section .slider_number-container {
-        position: absolute;
-        top: 8%;
-        left: 10%;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-      }
-      
-      .slider_section .carousel_btn-container {
-        width: 95px;
-        position: absolute;
-        bottom: 120px;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-                justify-content: space-between;
-        right: 50%;
-        z-index: 999;
-        -webkit-transform: translateX(50%);
-                transform: translateX(50%);
-      }
       ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
@@ -136,56 +109,4 @@
         background-color: #07111a;
         border-radius: 5px;
         padding: 10px;
-      }
-      .footer-dark {
-        padding:50px 0;
-        color:#f0f9ff;
-        background-color:#282d32;
-      }
-      
-      .footer-dark h3 {
-        margin-top:0;
-        margin-bottom:12px;
-        font-weight:bold;
-        font-size:16px;
-      }
-      
-      .footer-dark ul {
-        padding:0;
-        list-style:none;
-        line-height:1.6;
-        font-size:14px;
-        margin-bottom:0;
-      }
-      
-      .footer-dark ul a {
-        color:inherit;
-        text-decoration:none;
-        opacity:0.6;
-      }
-      
-      .footer-dark ul a:hover {
-        opacity:0.8;
-      }
-      
-      @media (max-width:767px) {
-        .footer-dark .item:not(.social) {
-          text-align:center;
-          padding-bottom:20px;
-        }
-      }
-      
-      .footer-dark .item.text {
-        margin-bottom:36px;
-      }
-      
-      @media (max-width:767px) {
-        .footer-dark .item.text {
-          margin-bottom:0;
-        }
-      }
-      
-      .footer-dark .item.text p {
-        opacity:0.6;
-        margin-bottom:0;
       }
