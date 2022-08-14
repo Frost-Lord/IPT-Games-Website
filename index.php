@@ -19,7 +19,17 @@ session_start();
         <a href="search.php">Search</a>
         <a href="#"></a>
         <a href="#"></a>
-        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
+        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i>
+            <?php
+            if (isset($_SESSION['cart'])) {
+                $cart = $_SESSION['cart'];
+                $cartCount = count($cart);
+                echo "<span class='badge badge-light'>$cartCount</span>";
+            } else {
+                echo "<span class='badge badge-light'>0</span>";
+            }
+            ?>
+    </a>
     </div>
 
     <br></br>
@@ -170,7 +180,6 @@ session_start();
 
     <?php
 
-      //create a box that is 500px by 500px that it 10cm from the left and 10cm from the top that displays the game's title, description, cost, and discount only if it has certified = "true"
       $db_connection = pg_connect("host=localhost dbname=Games user=postgres password=password");
       if (!$db_connection) {
           die("Error in connection: " . pg_last_error());
@@ -186,7 +195,9 @@ session_start();
       echo '<h1>Certified Games:</h1>';
         while ($row) {
             if ($row['certified'] == "t") {
-                //make a box that shows the games title to the left, games cost to the right, and games discount to the bottom the box is 50px by 50px
+                $costOfItem = $row['cost'];
+                $discount = $row['discount'];
+                $discountPrice = $costOfItem - ($costOfItem * ($discount / 100));
                 echo '<div class="box">';
                 echo '<h1>' . $row['title'] . ': <a class="Cbox">$' . $row['cost'] . ' AUD</a></h1>';
                 echo '<a class="Dbox">' . $row['description'] . '</a>';
@@ -299,7 +310,7 @@ session_start();
                 ];
 
                 $_SESSION['cart'] = serialize($cart);
-                echo "<script>alert(" . $game['title'] . " added to cart!)</script>";
+                header("Location: index.php");
             } else {
                 $cart[] = [
                     'title' => $gameTitle,
@@ -308,7 +319,7 @@ session_start();
                     'description' => $gameDescription
                 ];
                 $_SESSION['cart'] = serialize($cart);
-                echo "<script>alert(" . $game['title'] . " added to cart!)</script>";
+                header("Location: index.php");
             }
         }
 

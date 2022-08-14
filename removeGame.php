@@ -1,5 +1,7 @@
+<?php
+session_start();
+?>
 <html>
-
 <head>
     <title>Games Store</title>
     <meta http-equiv="Content-Type"'.' content="text/html; charset=utf8" />
@@ -31,7 +33,17 @@
         <a href="search.php">Search</a>
         <a href="#"></a>
         <a href="#"></a>
-        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
+        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i>
+            <?php
+            if (isset($_SESSION['cart'])) {
+                $cart = $_SESSION['cart'];
+                $cartCount = count($cart);
+                echo "<span class='badge badge-light'>$cartCount</span>";
+            } else {
+                echo "<span class='badge badge-light'>0</span>";
+            }
+            ?>
+    </a>
     </div>
 
     <div class="header">
@@ -59,8 +71,8 @@
         $query = "DELETE FROM listgames WHERE title = '$title'";
         $result = pg_query($query);
         if (!$result) {
-            echo "Invalid Game Title Provided!";
-            //die("Error in SQL query: " . pg_last_error());
+            //echo "Invalid Game Title Provided!";
+            die("Invalid Game Title Provided!");
         }
         echo "Game Removed";
     }

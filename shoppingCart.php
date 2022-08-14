@@ -34,7 +34,17 @@ session_start();
         <a href="search.php">Search</a>
         <a href="#"></a>
         <a href="#"></a>
-        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
+        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i>
+            <?php
+            if (isset($_SESSION['cart'])) {
+                $cart = $_SESSION['cart'];
+                $cartCount = count($cart);
+                echo "<span class='badge badge-light'>$cartCount</span>";
+            } else {
+                echo "<span class='badge badge-light'>0</span>";
+            }
+            ?>
+    </a>
     </div>
     <br></br>
 

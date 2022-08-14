@@ -1,5 +1,7 @@
+<?php
+session_start();
+?>
 <html>
-
 <head>
     <title>Games Store</title>
     <meta http-equiv="Content-Type"'.' content="text/html; charset=utf8" />
@@ -31,7 +33,17 @@
         <a href="search.php">Search</a>
         <a href="#"></a>
         <a href="#"></a>
-        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
+        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i>
+            <?php
+            if (isset($_SESSION['cart'])) {
+                $cart = $_SESSION['cart'];
+                $cartCount = count($cart);
+                echo "<span class='badge badge-light'>$cartCount</span>";
+            } else {
+                echo "<span class='badge badge-light'>0</span>";
+            }
+            ?>
+    </a>
     </div>
     <div class="header">
         <h1 style="color:white">What game would you like to add?:</h1>
@@ -46,8 +58,8 @@
                     <input type="text" name="title" placeholder="Game Title" id='GameTitle' style="color:black;"><br></br>
                     <input type="text" name="description" placeholder="Game Description" id='GameDescription' style="color:black;"><br></br>
                     <input type="text" name="developer" placeholder="Game Developer" id='GameDeveloper' style="color:black;"><br></br>
-                    <input type="text" name="discount" placeholder="Game Discount" id='GameDiscount' style="color:black;"><br></br>
-                    <input type="text" name="cost" placeholder="Game Cost" id='GameCost' style="color:black;"><br></br>
+                    <input type="number" name="discount" placeholder="Game Discount" id='GameDiscount' style="color:black;"><br></br>
+                    <input type="number" name="cost" placeholder="Game Cost" id='GameCost' style="color:black;"><br></br>
 
                     <h1 style="color:white">Choose a device:</h1>
                     <input type="checkbox" id="console" name="console" value="console">

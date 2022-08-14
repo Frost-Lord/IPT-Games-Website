@@ -1,5 +1,7 @@
+<?php
+session_start();
+?>
 <html>
-
 <head>
     <title>Games Store</title>
     <meta http-equiv="Content-Type"'.' content="text/html; charset=utf8" />
@@ -31,7 +33,17 @@
         <a href="search.php">Search</a>
         <a href="#"></a>
         <a href="#"></a>
-        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i></a>
+        <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i>
+            <?php
+            if (isset($_SESSION['cart'])) {
+                $cart = $_SESSION['cart'];
+                $cartCount = count($cart);
+                echo "<span class='badge badge-light'>$cartCount</span>";
+            } else {
+                echo "<span class='badge badge-light'>0</span>";
+            }
+            ?>
+    </a>
     </div>
 
     <div class="header">
@@ -42,12 +54,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <form action="addGame.php" method="post" class="formquestions">
-                    <input type="text" name="title" placeholder="Game Title"><br></br>
-                    <input type="text" name="description" placeholder="Game Description"><br></br>
-                    <input type="text" name="discount" placeholder="Game Discount"><br></br>
-                    <input type="text" name="device" placeholder="Game Device"><br></br>
-                    <input type="text" name="cost" placeholder="Game Cost"><br></br>
+                <form action="update.php" method="post" class="formquestions">
+                    <input type="text" name="title" placeholder="Game Title" style="color:black"><br></br>
+                    <input type="text" name="description" placeholder="Game Description" style="color:black"><br></br>
+                    <input type="text" name="discount" placeholder="Game Discount" style="color:black"><br></br>
+                    <input type="text" name="device" placeholder="Game Device" style="color:black"><br></br>
+                    <input type="text" name="cost" placeholder="Game Cost" style="color:black"><br></br>
                     <input type="submit" value="Add Game" style="color:black;">
                 </form>
             </div>
@@ -60,7 +72,7 @@
         $query = "SELECT * FROM listgames WHERE title = '$_POST[title]'";
         $result = pg_query($query);
         if (!$result) {
-            die("Error in SQL query: " . pg_last_error());
+            die("Invalid Name Provided!");
         }
         $row = pg_fetch_array($result, null, PGSQL_ASSOC);
         if ($row) {
