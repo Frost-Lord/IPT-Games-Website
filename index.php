@@ -17,7 +17,7 @@ session_start();
         <a href="removeGame.php">Remove Games</a>
         <a href="update.php">Update Games</a>
         <a href="search.php">Search</a>
-        <a href="#"></a>
+        <a href="tags.php">Tags</a>
         <a href="#"></a>
         <a href="shoppingCart.php" class="shoppingcart"><i class="fa fa-shopping-cart"></i>
             <?php
